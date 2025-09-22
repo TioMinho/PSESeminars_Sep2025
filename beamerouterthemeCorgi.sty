@@ -1,0 +1,158 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file is the outer theme file of Minho's Corgi Beamer Theme.
+%% Copyright (c) 2025- by Otacilio 'Minho' Neto, <otacilio.neto@aalto.fi>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+% or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% <https://www.gnu.org/licenses/> for more details.
+%
+% The above copyright notice and this permission notice shall be included 
+% in all copies or substantial portions of the Software.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthemeCorgi}[2025 V1 Minho Corgi Theme]
+
+\useoutertheme{sidebar}		% Default "skeleton" outer theme
+
+% GENERAL DEFINITIONS ---------------------------------------------------------
+%% PACKAGE LOADING
+
+% Define global variables used by the outer theme
+\def\beamer@progressmovingCircCnt{movingCircCnt} 	% Moving circular counter
+\def\beamer@progressfixedCircCnt{fixedCircCnt} 		% Fixed circular counter
+\def\beamer@progresscorner{corner} 					% A counter
+\def\beamer@progressstyle{movingCircCnt} 			% Default
+
+\DeclareOptionBeamer{progressstyle}{\def\beamer@progressstyle{#1}}
+\DeclareOptionBeamer{rotationcw}{\def\beamer@rotationcw{true}}
+\DeclareOptionBeamer{hidesidebar}{\def\beamer@corgi@hidesidebar{true}}
+\DeclareOptionBeamer{shield}{\def\beamer@corgi@shield{#1}}\ExecuteOptionsBeamer{shield=aalto_shield}
+\ProcessOptionsBeamer
+
+% -----------------------------------------------------------------------------
+% === Definition of Frame Dimensions ===
+% Definitions
+\newlength{\beamer@titleheight}
+\newlength{\beamer@logoradius}
+\newlength{\beamer@borderwidth}
+\newlength{\beamer@logoinnerradius}
+\newlength{\beamer@logoouterradius}
+\newlength{\beamer@counterradius}
+
+% Assignments
+\setlength{\beamer@titleheight}{0.05\paperheight}
+\setlength{\beamer@leftsidebar}{0.125\paperwidth}
+\setlength{\beamer@sidebarwidth}{0.125\paperwidth}
+\setlength{\beamer@logoradius}{0.95\beamer@titleheight/2}
+\setlength{\beamer@borderwidth}{1.05mm}
+\setlength{\beamer@logoinnerradius}{0.85\beamer@logoradius} 
+\setlength{\beamer@logoouterradius}{\beamer@logoinnerradius+\beamer@borderwidth}
+\setlength{\beamer@counterradius}{\beamer@logoinnerradius/2+\beamer@logoouterradius/2}
+
+\setbeamersize{text margin left=0.5cm,text margin right=0.75cm}
+
+% Defines a commom font for the entire frame
+\usebeamerfont{frametitle}
+\reset@font
+
+% TEMPLATE --------------------------------------------------------------------
+\mode<presentation>{
+	%% GENERAL CONFIGS --------------------------------------------------------
+	% Sets the default folt colors
+	\ifbeamercolorempty[fg]{Corgi} {
+		\setbeamercolor{Corgi    }{use={structure, palette sidebar primary}, fg=palette sidebar primary.fg, bg=structure.fg}
+		\setbeamercolor{Corgitext}{use={structure, palette sidebar primary}, fg=palette sidebar primary.fg, bg=structure.fg}
+	}
+
+	\setbeamertemplate{navigation symbols}	% Removes navigation symbols
+
+	%% FOOTNOTE ---------------------------------------------------------------
+	\setbeamertemplate{footnote}{%
+		\hangpara{2em}{1}%
+		\makebox[2em][l]{\insertfootnotemark}\footnotesize\insertfootnotetext\par%
+	}
+
+	%% HEADLINE ---------------------------------------------------------------
+	\setbeamertemplate{headline}{
+		\usebeamercolor{Corgi}
+		\usebeamercolor{Corgitext}
+	}
+
+	% -----------------------------------------------
+	% === Frametitle ===
+	\setbeamertemplate{frametitle} {
+		\begin{minipage}[c][0.95\beamer@titleheight][c]{\textwidth}
+			{\usebeamercolor[fg]{Corgitext}\usebeamerfont{section in head/foot}\bf
+			\vskip0.66em
+			\insertframetitle
+			\vskip1.00em}
+		\end{minipage}
+	}
+
+	% SIDEBAR -----------------------------------------------------------------
+	\setbeamertemplate{sidebar canvas left}[default]
+	
+	\ifx\beamer@corgi@hidesidebar\undefined
+	% IF THE SIDEBAR IS REQUESTED
+	\setbeamertemplate{sidebar left}{
+		\begin{minipage}[t][0.99\paperheight][t]{\beamer@leftsidebar} \centering
+			\usebeamerfont{section in head/foot} \usebeamercolor[fg]{Corgitext}
+			\vskip0.25cm
+			\begin{minipage}{0.95\beamer@leftsidebar} \centering
+				{\bfseries \scriptsize \insertshorttitle[width=\textwidth,center,respectlinebreaks] \vskip0cm}
+				\vskip0.15cm
+				{\color{monokaiBG!95!white} \hrule}
+				\vskip0.15cm
+				{\bfseries \color{monokaiDarkBlue} \insertshortauthor[width=\textwidth,center] \vskip0cm}
+				\vskip0.1cm
+				{\color{monokaiBG!95!white} \hrule}
+			\end{minipage}%
+			\vskip0cm
+			\begin{minipage}{0.95\beamer@leftsidebar} \centering
+				{\insertverticalnavigation{\beamer@leftsidebar} \vskip0cm}
+			\end{minipage}
+			\vfill
+			\begin{minipage}[b]{0.95\beamer@leftsidebar} \centering
+				{\color{monokaiBG!95!white} \hrule}
+				\vskip0.1cm
+				\begin{columns}
+				\column{0.4\textwidth} \centering
+					\hspace*{1em}\includegraphics[width=0.9\textwidth]{theme/\beamer@corgi@shield_gray}
+
+				\column{0.59\textwidth}
+					{\bfseries \color{monokaiDarkBlue} 
+					\hspace*{-1em}\noindent\insertshortinstitute[width=\textwidth]\\
+					\vskip0.2cm
+					\insertframenumber/\inserttotalframenumber
+					}
+
+				\end{columns}
+			\end{minipage}
+		\end{minipage}%
+	}
+	\else
+	% IF THE SIDEBAR IS OMMITED
+	\setbeamertemplate{sidebar left}{}
+	\setbeamersize{sidebar width left=0pt}
+	
+	\fi
+
+	% -----------------------------------------------
+	% === OTHER TEMPLATES: BLOCKS, LISTS, ... ===
+	% Defines a new template for blocks
+	\setbeamertemplate{blocks}[rounded][shadow=false]
+	\setbeamerfont*{itemize/enumerate body}{size=\normalsize}
+	\setbeamerfont*{itemize/enumerate subbody}{parent=itemize/enumerate body}
+	\setbeamerfont*{itemize/enumerate subsubbody}{parent=itemize/enumerate body}
+}
+
+% ---
+\mode<all>

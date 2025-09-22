@@ -1,0 +1,70 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Copyright (c) 2021- by Otacilio 'Minho' Neto, <minhotmog@gmail.com>
+% This code is licensed under GPL 3 (see <https://www.gnu.org/licenses/> )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[8pt,aspectratio=169]{beamer}
+\usetheme[hidesidebar]{Corgi}
+\setbeamercovered{transparent}	% Makes <onslide> elements translucid
+
+\input{theme/beamer_preamble.tex}	% Includes beamer-specific preamble configurations
+
+% FRONT MATTER ----------------------------------------------------------------
+\title[]{Predictive control and feedback equilibrium\\seeking for sustainable water resource recovery}
+\subtitle[]{}
+\author[O. Neto]{      
+	Otacílio ``Minho'' Neto \\[2ex]
+	{\footnotesize Process Systems Engineering (CMET/CHEM),\\[-1ex]Aalto University, Finland}
+}
+
+\institute[PSE-Seminars, 09.2025]{
+	{\bfseries {Seminars on Process Systems Engineering}}\\
+	Aalto University, September 25, 2025\\
+  
+	% /\ Compulsory empty line
+}
+
+% DOCUMENT --------------------------------------------------------------------
+\begin{document}
+
+% TITLE PAGE ------------------------------------------------------------------
+{\1 
+\begin{frame}[plain,noframenumbering] 
+	\titlepage
+\end{frame}
+} 
+
+% SLIDES ----------------------------------------------------------------------
+\input{slides/predictivecontrol.tex}
+\input{slides/equilibriumseeking.tex}
+
+% THANK YOU PAGE --------------------------------------------------------------
+{\1
+\begin{frame}[c,plain,noframenumbering]  
+	\begin{center}
+		\vfill
+		\vskip5em
+
+		\textcolor{monokaiOrange}{\bf I am always looking for opportunities to collaborate-- so hit me up!}
+		\vskip3em 
+
+		\begin{minipage}{0.2\textwidth} \centering
+			\includegraphics[scale=0.2]{figs/website.png}\\
+			\textcolor{monokaiOrange}{\tt [tiominho.github.io]}
+		\end{minipage}
+		\hspace*{4em}
+		\begin{minipage}{0.25\textwidth} \centering
+			\includegraphics[scale=0.8]{figs/koira}\\
+			{\bf \Huge \color{monokaiBG!25!white} Thank you!}\\
+			{\Large \color{monokaiOrange} \textbf{Questions?}}\\
+		\end{minipage}
+
+		\vfill
+		\vskip4em
+		{\bfseries \color{monokaiOrange} \insertshorttitle}\\
+		{\color{monokaiOrange}May 26, 2025}
+	\end{center}
+\end{frame}
+}
+
+%-------------------------------------------------------
+\end{document}

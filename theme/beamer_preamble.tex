@@ -1,0 +1,175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file is part of Minho's Corgi Beamer Theme.
+%% Copyright (c) 2021-- by Otacilio 'Minho' Neto, <otacilio.neto@aalto.fi>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+% or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% <https://www.gnu.org/licenses/> for more details.
+%
+% The above copyright notice and this permission notice shall be included 
+% in all copies or substantial portions of the Software.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --------------------------------------------------------------------
+% Packages
+% --------------------------------------------------------------------
+% Text, input, language-related packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage[protrusion=true,expansion=true]{microtype} 
+\usepackage{lmodern}
+
+% Math packages
+\usepackage{amsmath,amsfonts,amsthm,amssymb,bm,mathtools}
+
+% Graphic and color packages
+\usepackage[skins]{tcolorbox}				% Coloured boxes for LaTeX objects
+\usepackage{graphicx} 						% Enhanced support for graphics
+\usepackage{color, xcolor}					% Driver-independent color extensions
+
+% General utilities
+\usepackage[nodayofweek]{datetime}			% Customize date commands
+\usepackage[document]{ragged2e}				% Text-alignment (\centering, ...)
+\usepackage[ruled,vlined]{algorithm2e}		% Pseudo-code environment
+\usepackage{algorithmic}					% Pseudo-code environments (beamer-friendly)
+\usepackage{framed, mdframed}				% Framed and shaded environments
+\usepackage{enumitem}						% Functionalities for {enumerate/itemize}
+\usepackage{environ}						% Better interface for environments
+\usepackage{listings}						% Coding environments
+\usepackage{etoolbox,xstring}				% Environment hooks (\BeforeBegin...)
+\usepackage{fontawesome}					% Font-awesome web icons
+\usepackage{booktabs}						% Better {tabular} environments
+
+% --------------------------------------------------------------------
+% Packages Configurations
+% --------------------------------------------------------------------
+% (inputenc, fontenc): Set serif on math fonts
+\usefonttheme[onlymath]{serif} 
+\renewcommand{\familydefault}{\rmdefault}
+
+% (minted): Set Monokai as default color style
+%\usemintedstyle{monokai}
+\definecolor{bg}{HTML}{282828} % (Source: https://github.com/kevinsawicki/monokai) 
+
+% (enumitem): Default configurations for all lists
+\setlist[itemize,1]{label=$\blacktriangleright$, format=\color{monokaiOrange}}
+\setlist[itemize,2]{label=$\leadsto$, format=\color{monokaiOrange}}
+
+% (listings): Defines the code styling and formatting
+\lstset{
+    backgroundcolor=\color[RGB]{39,40,34},
+    language=matlab, keywordstyle=\color[RGB]{102,217,239},
+    basicstyle=\footnotesize \ttfamily,breaklines=true,
+    escapeinside={\%*}{*)}
+}
+
+% (datetime): Personalized date commands (apply them before a \today)
+\newdateformat{datenum}{\twodigit{\THEDAY}/\twodigit{\THEMONTH}/\THEYEAR}
+\newdateformat{datefull}{\twodigit{\THEDAY}{ }\monthname[\THEMONTH], \THEYEAR}
+
+% (algorithm2e): Remove algorithm numbering
+\renewcommand{\thealgocf}{}
+
+% --------------------------------------------------------------------
+% Commands
+% --------------------------------------------------------------------
+
+% Single line {itemize} environment
+\newcommand{\pointer}[2]{%
+	\IfEqCase{#1}{%
+		{1}{\begin{itemize} \item #2 \end{itemize}}%
+		{2}{\begin{itemize} \item[$\leadsto$] #2 \end{itemize}}%
+	}[\PackageError{pointer}{Undefined option to pointer: #1}{}]%
+}
+
+% Clear separator line 
+\newcommand{\separatorLine}[2]{\vskip#1{\color{monokaiBG!10!white}\hrule}\vskip#2}
+
+% Fast colouring commands
+\newcommand{\clP}[1]{{\color{monokaiOrange!66!black} #1}}
+\newcommand{\clX}[1]{{\color{stateColor} #1}}
+\newcommand{\clU}[1]{{\color{inputColor} #1}}
+\newcommand{\clY}[1]{{\color{outputColor} #1}}
+\newcommand{\clW}[1]{{\color{disturbanceColor} #1}}
+
+\newcommand{\clPX}[1]{{\color{outputColor!75!black} #1}}
+\newcommand{\clPU}[1]{{\color{inputColor!75!black} #1}}
+
+% Colored hyperlinks
+\newcommand{\chref}[2]{
+  \href{#1}{{\usebeamercolor[bg]{Feather}#2}}
+}
+
+% A cooler transpose symbol 'T'
+\newcommand*{\tran}{{\mkern-1.5mu\mathsf{T}}}
+
+% Argmax and Argmin math operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Adds transparency to figures in overlays
+\newcommand<>{\uncovergraphics}[2][{}]{
+    % Taken from: <https://tex.stackexchange.com/a/354033/95423>
+    \begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (B) at (4,0) 
+		{\includegraphics[#1]{#2}};
+    \alt#3{}{%
+        \fill [draw=none, fill=white, fill opacity=0.9] (B.north west) -- (B.north east) -- (B.south east) -- (B.south west) -- (B.north west) -- cycle;
+    }
+    \end{tikzpicture}
+}
+
+% Info and warning coloured boxes
+\newcommand{\boxHighlight}[2][\textwidth]{
+	\begin{center} 
+	\begin{tcolorbox}[width=#1, boxsep=-2pt, frame empty, colback=monokaiBG!10!white, rounded corners]
+		\faFileTextO~~#2
+	\end{tcolorbox}
+	\end{center}
+}
+
+\newcommand{\boxInfo}[2][\textwidth]{
+	\begin{center} 
+	\begin{tcolorbox}[width=#1, boxsep=-2pt, frame empty, colback=aaltoBlue!10!white, rounded corners]
+		\color{aaltoBlue!80!white}
+		\faInfoCircle~~#2
+	\end{tcolorbox}
+	\end{center}
+}
+
+\newcommand{\boxWarning}[2][\textwidth]{
+	\begin{center} 
+	\begin{tcolorbox}[width=#1, boxsep=-2pt, frame empty, colback=aaltoRed!10!white, rounded corners]
+		\color{aaltoRed!80!white}
+		\faWarning~~#2
+	\end{tcolorbox}
+	\end{center}
+}
+
+% --------------------------------------------------------------------
+% Environments
+% --------------------------------------------------------------------
+
+% A shaded-block of variable size
+\newenvironment<>{varblock}[2][.9\textwidth]
+	{%
+	\begin{minipage}[t]{#1}\centering%
+	\begin{actionenv}#3%
+		\def\insertblocktitle{#2}%
+		\par%
+		\usebeamertemplate{block begin}
+	}
+	{
+		\par%
+		\usebeamertemplate{block end}%
+	\end{actionenv}
+	\end{minipage}
+	}

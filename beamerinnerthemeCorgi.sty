@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file is the inner theme file of Minho's Corgi Beamer Theme.
+%% Copyright (c) 2021- by Otacilio 'Minho' Neto, <minhotmog@gmail.com>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+% or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% <https://www.gnu.org/licenses/> for more details.
+%
+% The above copyright notice and this permission notice shall be included 
+% in all copies or substantial portions of the Software.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthemeCorgi}[2020 V1 Minho Corgi Theme]
+
+\DeclareOptionBeamer{shield}{\def\beamer@corgi@shield{#1}}\ExecuteOptionsBeamer{shield=aalto_shield}
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INNER THEME DEFINITIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<presentation> {
+
+	% -----------------------------------------------------------------------------
+	% === General Page Definition ===
+	\setbeamerfont{normal text}{family=\rmfamily,size=\normalsize}
+
+	% -----------------------------------------------------------------------------
+	% === Title Page Definition ===
+	% Font for the title page
+	\setbeamerfont{institute}{family=\rmfamily, size = \small}
+	\setbeamerfont{title}{	family=\rmfamily, 	size = \Huge} 
+	\setbeamerfont{subtitle}{family=\rmfamily, 	size = \Large}
+	\setbeamerfont{author}{	family=\rmfamily, 	size = \large}
+	\setbeamerfont{date}{	family=\rmfamily, 	size = \small}
+
+	\setbeamerfont{block title}{family=\bf,size=\normalsize}
+
+	% Check if theme-specific colors are defined
+	\ifbeamercolorempty[fg]{Corgi} {
+		\setbeamercolor{Corgi}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+		\setbeamercolor{Corgitext}{use={structure,palette sidebar primary},fg=palette sidebar primary.fg,bg=structure.fg}
+	}
+
+	% Create a template for the title page
+	\setbeamertemplate{title page} {
+		\hskip-\beamer@leftsidebar \hskip-\beamer@leftmargin % Compensates for margin
+		\begin{minipage}[l][\paperheight][c]{\paperwidth} \centering
+
+			{\usebeamerfont{institute}\usebeamercolor[fg]{Corgitext}\insertinstitute}\vspace*{30pt}
+
+			{\bfseries \usebeamerfont{title}\usebeamercolor[fg]{Corgitext}\inserttitle}\vspace*{10pt}
+
+			{\bfseries\usebeamerfont{subtitle}\usebeamercolor[fg]{Corgitext}\insertsubtitle}\vspace*{30pt}
+
+			{\bfseries\usebeamerfont{author}\usebeamercolor[fg]{Corgitext}\insertauthor}\vspace*{30pt}
+
+		 \end{minipage}
+ 	}
+	
+	% -----------------------------------------------------------------------------
+	% === Final Page Definition ===
+	\defbeamertemplate{final page}{text}[1] {
+		\hskip-\beamer@sidebarwidth \hskip-\beamer@leftmargin % Compensates for margin
+		\begin{minipage}[l][\paperheight][c]{\paperwidth} \centering
+			\Huge \color{monokaiOrange} \bfseries #1
+		\end{minipage}
+	}
+	
+	\newcommand{\finalpage}[1] {
+		\setbeamertemplate{final page}[text]{#1}
+		\usebeamertemplate{final page}
+	}
+
+	% Creates a command to create a fully-filled background frame
+	\newcommand{\1}{
+		\setbeamertemplate{background} {
+			\begin{tikzpicture}[remember picture,overlay]
+				\node[anchor=center] at (current page.center) {\includegraphics[width=0.60\textwidth]{theme/\beamer@corgi@shield_black}};
+				\fill[fill opacity=0.98,fill=Corgi.bg] (0,0) rectangle (\paperwidth,-1\paperheight);
+			\end{tikzpicture}
+		}
+	}
+
+	% -----------------------------------------------------------------------------
+	% === Bibliography Page Definition ===
+	\setbeamertemplate{bibliography item}[text]
+
+}
+% ---
+
+\mode<all>

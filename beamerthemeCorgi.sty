@@ -1,0 +1,45 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% This file is the main file of Minho's Corgi Beamer Theme.
+%% Copyright (c) 2025- by Otacilio 'Minho' Neto, <otacilio.neto@aalto.fi>
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but
+% WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+% or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+% <https://www.gnu.org/licenses/> for more details.
+%
+% The above copyright notice and this permission notice shall be included 
+% in all copies or substantial portions of the Software.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeCorgi}[2025 V1 Minho Corgi Theme]
+
+% GENERAL DEFINITIONS ---------------------------------------------------------
+%% PACKAGE LOADING
+\RequirePackage{tikz}
+\RequirePackage{calc}
+
+% OPTINAL PARAMETERS ----------------------------------------------------------
+\DeclareOptionBeamer{progressstyle}{\PassOptionsToPackage{progressstyle=#1}{beamerouterthemeCorgi}}
+\DeclareOptionBeamer{rotationcw}{\PassOptionsToPackage{rotationcw}{beamerouterthemeCorgi}}
+\DeclareOptionBeamer{hidesidebar}{\PassOptionsToPackage{hidesidebar}{beamerouterthemeCorgi}}
+\DeclareOptionBeamer{shield}{
+	\PassOptionsToPackage{shield=#1}{beamerouterthemeCorgi}
+	\PassOptionsToPackage{shield=#1}{beamerinnerthemeCorgi}
+}
+\ProcessOptionsBeamer
+
+% THEME DEFINITION ------------------------------------------------------------
+\mode<presentation>{
+	\useinnertheme{Corgi}
+	\useoutertheme{Corgi}
+	\usecolortheme{Corgi}
+}
+
+\mode<all>
