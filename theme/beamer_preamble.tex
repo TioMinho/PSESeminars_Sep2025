@@ -54,6 +54,7 @@
 % (inputenc, fontenc): Set serif on math fonts
 \usefonttheme[onlymath]{serif} 
 \renewcommand{\familydefault}{\rmdefault}
+\setlength\arraycolsep{3pt}
 
 % (minted): Set Monokai as default color style
 %\usemintedstyle{monokai}
@@ -95,10 +96,10 @@
 
 % Fast colouring commands
 \newcommand{\clP}[1]{{\color{monokaiOrange!66!black} #1}}
-\newcommand{\clX}[1]{{\color{stateColor} #1}}
-\newcommand{\clU}[1]{{\color{inputColor} #1}}
-\newcommand{\clY}[1]{{\color{outputColor} #1}}
-\newcommand{\clW}[1]{{\color{disturbanceColor} #1}}
+\newcommand{\clX}[1]{{\color{outputColor!75!black} #1}}
+\newcommand{\clU}[1]{{\color{inputColor!75!black} #1}}
+\newcommand{\clY}[1]{{\color{outputColor!75!black} #1}}
+\newcommand{\clW}[1]{{\color{disturbanceColor!75!black} #1}}
 
 \newcommand{\clPX}[1]{{\color{outputColor!75!black} #1}}
 \newcommand{\clPU}[1]{{\color{inputColor!75!black} #1}}
@@ -128,18 +129,18 @@
 }
 
 % MATH MACROS
-\newcommand{\WeightMatrix}{\begin{bmatrix} W_x^p & \\ & W_u^p \end{bmatrix}}
-\newcommand{\NoiseMatrix}{\begin{bmatrix} B_w \\ D_w \end{bmatrix}}
-\newcommand{\NoiseMatrixBig}{\begin{bmatrix} B_w \\ D_w \\[-1.2ex] \vdots \\[-0.8ex] D_w \end{bmatrix}}
-\newcommand{\ConstMatrix}{\begin{bmatrix} G_x & G_u \\ & e_p^{\tran} \otimes G_{u^p} \end{bmatrix}}
-\newcommand{\XU}[3]{\begin{bmatrix} {#1 x}#2 \\ {#1 u#3}#2 \end{bmatrix}}
-\newcommand{\XUBig}[2]{\begin{bmatrix} {#1 x} \\ {#1 u^1}#2 \\[-1.2ex] \vdots \\[-0.8ex] {#1 u^{N_P}}#2 \end{bmatrix}}
-\newcommand{\SLSPhi}[3]{\begin{bmatrix} {#1 \Phi}_{xx}#3 & {#1 \Phi}_{xy}#3 \\ {#1 \Phi}_{ux}#2#3 & {#1 \Phi}_{uy}#2#3 \end{bmatrix}}
-\newcommand{\SLSPhiSchur}[2]{ {#1 \Phi}_{uy}^{p#2} - {#1 \Phi}_{ux}^{p#2} ({#1 \Phi}_{xx}#2)^{-1} {#1 \Phi}_{xy}#2 }
-\newcommand{\KInverse}{\begin{bmatrix} zI{-}A & {-}B_u^{1} ~\cdots~ {-}B_u^{N_P} \\ -C & (K^{1})^{-1}\hfill \\[-1.2ex] \vdots & \hspace*{-1.66em}\ddots \\[-0.8ex] -C & \hfill(K^{N_P})^{-1} \end{bmatrix}^{-1}}
-\newcommand{\ZAB}{\begin{bmatrix} zI{-}A & {-}B_u^{1} ~\cdots~ {-}B_u^{N_P} \end{bmatrix}}
-\newcommand{\ZAC}{\begin{bmatrix} zI{-}A \\ -C \end{bmatrix}}
-\newcommand{\ZIO}{\begin{bmatrix} I & 0 \end{bmatrix}}
+\newcommand{\WeightMatrix}{\clP{\begin{bmatrix} W_x^p & \\ & W_u^p \end{bmatrix}}}
+\newcommand{\NoiseMatrix}{\clP{\begin{bmatrix} B_w \\ D_w \end{bmatrix}}}
+\newcommand{\NoiseMatrixBig}{\clP{\begin{bmatrix} B_w \\ D_w \\[-1.2ex] \vdots \\[-0.8ex] D_w \end{bmatrix}}}
+\newcommand{\ConstMatrix}{\clP{\begin{bmatrix} G_x & G_u \\ & e_p^{\tran} \otimes G_{u^p} \end{bmatrix}}}
+\newcommand{\XU}[3]{\begin{bmatrix} \clX{{#1 x}#2} \\ \clU{{#1 u#3}#2} \end{bmatrix}}
+\newcommand{\XUBig}[2]{\begin{bmatrix} \clX{{#1 x}} \\ \clU{{#1 u^1}#2} \\[-1.2ex] \clU{\vdots} \\[-0.8ex] \clU{{#1 u^{N_P}}#2} \end{bmatrix}}
+\newcommand{\SLSPhi}[3]{\begin{bmatrix} \clPX{{#1 \Phi}_{xx}#3} & \clPX{{#1 \Phi}_{xy}#3} \\ \clPU{{#1 \Phi}_{ux}#2#3} & \clPU{{#1 \Phi}_{uy}#2#3} \end{bmatrix}}
+\newcommand{\SLSPhiSchur}[2]{ \clPU{{#1 \Phi}_{uy}^{p#2}} - \clPU{{#1 \Phi}_{ux}^{p#2}} (\clPX{{#1 \Phi}_{xx}#2})^{-1} \clPX{{#1 \Phi}_{xy}#2} }
+\newcommand{\KInverse}{\begin{bmatrix} \clP{zI{-}A} & \clP{{-}B_u^{1}} ~\cdots~ \clP{{-}B_u^{N_P}} \\ \clP{-C} & \clPU{(K^{1})^{-1}}\hfill \\[-1.2ex] \clP{\vdots} & \hspace*{-1.66em}\clPU{\ddots} \\[-0.8ex] \clP{-C} & \hfill\clPU{\hfill(K^{N_P})^{-1}} \end{bmatrix}^{-1}}
+\newcommand{\ZAB}{\clP{\begin{bmatrix} zI{-}A & {-}B_u^{1} ~\cdots~ {-}B_u^{N_P} \end{bmatrix}}}
+\newcommand{\ZAC}{\clP{\begin{bmatrix} zI{-}A \\ -C \end{bmatrix}}}
+\newcommand{\ZIO}{\clP{\begin{bmatrix} I & 0 \end{bmatrix}}}
 
 % Includes a section or subsection title-page
 \newcommand{\sectioncover}{
