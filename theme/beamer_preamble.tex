@@ -127,6 +127,35 @@
     \end{tikzpicture}
 }
 
+% MATH MACROS
+\newcommand{\WeightMatrix}{\begin{bmatrix} W_x^p & \\ & W_u^p \end{bmatrix}}
+\newcommand{\NoiseMatrix}{\begin{bmatrix} B_w \\ D_w \end{bmatrix}}
+\newcommand{\NoiseMatrixBig}{\begin{bmatrix} B_w \\ D_w \\[-1.2ex] \vdots \\[-0.8ex] D_w \end{bmatrix}}
+\newcommand{\ConstMatrix}{\begin{bmatrix} G_x & G_u \\ & e_p^{\tran} \otimes G_{u^p} \end{bmatrix}}
+\newcommand{\XU}[3]{\begin{bmatrix} {#1 x}#2 \\ {#1 u#3}#2 \end{bmatrix}}
+\newcommand{\XUBig}[2]{\begin{bmatrix} {#1 x} \\ {#1 u^1}#2 \\[-1.2ex] \vdots \\[-0.8ex] {#1 u^{N_P}}#2 \end{bmatrix}}
+\newcommand{\SLSPhi}[3]{\begin{bmatrix} {#1 \Phi}_{xx}#3 & {#1 \Phi}_{xy}#3 \\ {#1 \Phi}_{ux}#2#3 & {#1 \Phi}_{uy}#2#3 \end{bmatrix}}
+\newcommand{\SLSPhiSchur}[2]{ {#1 \Phi}_{uy}^{p#2} - {#1 \Phi}_{ux}^{p#2} ({#1 \Phi}_{xx}#2)^{-1} {#1 \Phi}_{xy}#2 }
+\newcommand{\KInverse}{\begin{bmatrix} zI{-}A & {-}B_u^{1} ~\cdots~ {-}B_u^{N_P} \\ -C & (K^{1})^{-1}\hfill \\[-1.2ex] \vdots & \hspace*{-1.66em}\ddots \\[-0.8ex] -C & \hfill(K^{N_P})^{-1} \end{bmatrix}^{-1}}
+\newcommand{\ZAB}{\begin{bmatrix} zI{-}A & {-}B_u^{1} ~\cdots~ {-}B_u^{N_P} \end{bmatrix}}
+\newcommand{\ZAC}{\begin{bmatrix} zI{-}A \\ -C \end{bmatrix}}
+\newcommand{\ZIO}{\begin{bmatrix} I & 0 \end{bmatrix}}
+
+% Includes a section or subsection title-page
+\newcommand{\sectioncover}{
+	{ \1
+	\begin{frame}[plain,noframenumbering] 
+		\begin{tikzpicture}[remember picture, overlay]
+		\node[anchor=center] at (current page.center)
+		{\begin{minipage}{\textwidth} \centering
+			\vskip3cm {\bf \Huge \color{monokaiOrange} \insertsection}\\
+			\vskip2cm {\bfseries \color{monokaiOrange} \insertshorttitle}\\
+			{\color{monokaiOrange}\datefull{\today}}
+		\end{minipage}};
+		\end{tikzpicture}
+	\end{frame}
+	}}
+
 % Info and warning coloured boxes
 \newcommand{\boxHighlight}[2][\textwidth]{
 	\begin{center} 
