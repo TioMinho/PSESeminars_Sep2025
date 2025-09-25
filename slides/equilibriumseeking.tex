@@ -78,7 +78,9 @@
 			\underset{\clPU{K^p}}{\text{minimize}} \quad
 				& \mathrm{E}\sum_{n=0}^{\infty} \left\| \WeightMatrix \XU{}{[n]}{^p} \right\|_2^2 \\[0.5ex]
 			\underset{}{\text{subject to} } \quad
-				& \XUBig{}{}{} = \KInverse \NoiseMatrixBig \clW{w}   \\[0.33ex]
+				& \clX{x[n{+}1]} = \clP{A}\clX{x[n]} + \clP{B_w}\clW{w[n]} + \textstyle\sum_{p} \clP{B_u^p} \clU{u[n]}   \\[-1.33ex]
+				& ~~\clU{u^p[n]} = \clPU{K^p}(\clP{C}\clX{x[n]} + \clP{D_w}\clW{w[n]})   \\
+				% & \XUBig{}{}{} = \KInverse \NoiseMatrixBig \clW{w}   \\[0.33ex]
 				& \ConstMatrix \XU{}{[n]}{} \preceq 1, ~~~ \clPU{K^p[n]} \in \clPU{\mathcal{S}^p[n]}
 		\end{align*}
 	\end{tcolorbox}
